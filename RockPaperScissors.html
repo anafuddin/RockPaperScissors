@@ -13,7 +13,7 @@
 
         function getComputerChoice() {
             let random = Math.floor(Math.random() * 100);
-            let ComputerChoice
+            let ComputerChoice = "";
             if (random <= 34) {
                 ComputerChoice = "ROCK";
                 return ComputerChoice;
@@ -46,19 +46,23 @@
         function game() {
             for (i = 0; i < 5; i++) {
                 
-                playRound(prompt("Type Rock, Paper, or Scissors"), getComputerChoice);
+                playRound(prompt("Type Rock, Paper, or Scissors"), getComputerChoice());
                     console.log(`You have won ${playerWins} rounds!`);
-                    console.log(`You have won ${computerWins} rounds!`);
+                    console.log(`Computer has won ${computerWins} rounds!`);
             }
 
             if(playerWins > computerWins) {
                 console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU WON!`);
-            } else {
-                console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU WON!`);
+            } else if (playerWins < computerWins) {
+                console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU LOST!`);
+            } else if (playerWins == computerWins) {
+                console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU TIED!`)
             }
         }
 
-        
+        game();
+
+
     </script>
 </body>
 </html>
