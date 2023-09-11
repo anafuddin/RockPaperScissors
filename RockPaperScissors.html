@@ -6,14 +6,32 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="page">
+        <button class="ROCK">ROCK</button>
+        <button class="PAPER">PAPER</button>
+        <button class="SCISSORS">SCISSORS</button>
+    </div>
+
     <script>
         
         let playerWins = 0;
         let computerWins = 0;
+        let rockChoice = document.querySelector("ROCK");
+        let paperChoice = document.querySelector("PAPER");
+        let scissorsChoice = document.querySelector("SCISSORS");
+        let buttonChoice = document.querySelectorAll('button');
+
+        function logText(e) {
+            return toString(this.classList.value);
+  }
+
+        buttonChoice.forEach(button => button.addEventListener('click', function(e) {
+            playRound(e.target.classList.value, getComputerChoice());
+        }))
 
         function getComputerChoice() {
             let random = Math.floor(Math.random() * 100);
-            let ComputerChoice = "";
+            let ComputerChoice
             if (random <= 34) {
                 ComputerChoice = "ROCK";
                 return ComputerChoice;
@@ -30,26 +48,26 @@
         }
 
         function playRound(playerSelection, computerSelection) {
-            playerSelection = playerSelection.toUpperCase();
                 if(playerSelection === computerSelection) {
                 console.log(`Both Players picked ${playerSelection}, it's a tie!`);
-            } else if (playerSelection === "ROCK" && computerSelection === "PAPER" || playerSelection === "PAPER" && computerSelection === "SCISSORS" || playerSelection === "SCISSORS" && computerSelection === "ROCK") {
+            } else if (playerSelection === "ROCK" && computerSelection === "PAPER" || 
+            playerSelection === "PAPER" && computerSelection === "SCISSORS" || 
+            playerSelection === "SCISSORS" && computerSelection === "ROCK") {
                 computerWins = computerWins + 1;
                 console.log(`Computer played ${computerSelection}, you LOSE!`);
 
-            } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" || playerSelection === "PAPER" && computerSelection === "ROCK" || playerSelection === "SCISSORS" && computerSelection === "PAPER" ) {
+            } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" ||
+             playerSelection === "PAPER" && computerSelection === "ROCK" ||
+              playerSelection === "SCISSORS" && computerSelection === "PAPER" ) {
                 playerWins = playerWins + 1;
                 console.log(`Computer played ${computerSelection}, you WIN!`);
             }
         }
-
+/*
         function game() {
-            for (i = 0; i < 5; i++) {
-                
                 playRound(prompt("Type Rock, Paper, or Scissors"), getComputerChoice());
                     console.log(`You have won ${playerWins} rounds!`);
                     console.log(`Computer has won ${computerWins} rounds!`);
-            }
 
             if(playerWins > computerWins) {
                 console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU WON!`);
@@ -61,7 +79,7 @@
         }
 
         game();
-
+*/
 
     </script>
 </body>
