@@ -3,30 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
 </head>
 <body>
     <div class="page">
-        <button class="ROCK">ROCK</button>
-        <button class="PAPER">PAPER</button>
-        <button class="SCISSORS">SCISSORS</button>
+        <div class="results" style="width: auto;">
+            <h1>Rock Paper Scissors</h1>
+            <h2>RESULTS</h2>
+            <h3 class="pWins">PLAYER WINS:</h3>
+            <h3 class="cWins">COMPUTER WINS:</h3>
+        </div>
+        <div class="button-container">
+            <button class="ROCK">ROCK</button>
+            <button class="PAPER">PAPER</button>
+            <button class="SCISSORS">SCISSORS</button>
+        </div>
     </div>
 
     <script>
         
         let playerWins = 0;
         let computerWins = 0;
-        let rockChoice = document.querySelector("ROCK");
-        let paperChoice = document.querySelector("PAPER");
-        let scissorsChoice = document.querySelector("SCISSORS");
         let buttonChoice = document.querySelectorAll('button');
-
-        function logText(e) {
-            return toString(this.classList.value);
-  }
+        let playerWinsDisplay = document.querySelector('.pWins');
+        let computerWinsDisplay = document.querySelector('.cWins');
+        const resultsDiv = document.querySelector('.results');
 
         buttonChoice.forEach(button => button.addEventListener('click', function(e) {
-            playRound(e.target.classList.value, getComputerChoice());
+            let result = document.createElement('p');
+            result.textContent = playRound(e.target.classList.value, getComputerChoice());
+            resultsDiv.appendChild(result);
+            playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
+            computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
         }))
 
         function getComputerChoice() {
@@ -49,18 +57,20 @@
 
         function playRound(playerSelection, computerSelection) {
                 if(playerSelection === computerSelection) {
-                console.log(`Both Players picked ${playerSelection}, it's a tie!`);
-            } else if (playerSelection === "ROCK" && computerSelection === "PAPER" || 
+                return `Both Players picked ${playerSelection}, it's a tie!`;
+            } 
+            else if (playerSelection === "ROCK" && computerSelection === "PAPER" || 
             playerSelection === "PAPER" && computerSelection === "SCISSORS" || 
             playerSelection === "SCISSORS" && computerSelection === "ROCK") {
                 computerWins = computerWins + 1;
-                console.log(`Computer played ${computerSelection}, you LOSE!`);
+                return `Computer played ${computerSelection}, you LOSE!`;
 
-            } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" ||
+            } 
+            else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" ||
              playerSelection === "PAPER" && computerSelection === "ROCK" ||
               playerSelection === "SCISSORS" && computerSelection === "PAPER" ) {
                 playerWins = playerWins + 1;
-                console.log(`Computer played ${computerSelection}, you WIN!`);
+                return `Computer played ${computerSelection}, you WIN!`;
             }
         }
 /*
