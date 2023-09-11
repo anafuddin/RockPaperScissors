@@ -3,17 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <div class="page">
+        <div class="results" style="width: auto;">
+            <h1>Rock Paper Scissors</h1>
+            <h2>RESULTS</h2>
+            <h3 class="pWins">PLAYER WINS:</h3>
+            <h3 class="cWins">COMPUTER WINS:</h3>
+            <h3 class="whoWon"></h3>
+            <h1 class="gameWinMessage"></h1>
+        </div>
+        <div class="button-container">
+            <button class="ROCK">ROCK</button>
+            <button class="PAPER">PAPER</button>
+            <button class="SCISSORS">SCISSORS</button>
+        </div>
+        <div class="playAgain"></div>
+    </div>
+
     <script>
         
         let playerWins = 0;
         let computerWins = 0;
+        let buttonChoice = document.querySelectorAll('button');
+        let playerWinsDisplay = document.querySelector('.pWins');
+        let computerWinsDisplay = document.querySelector('.cWins');
+        const resultsDiv = document.querySelector('.results');
+        let gameWinMessage = document.querySelector('.gameWinMessage');
+        const playAgainContainer = document.querySelector('.playAgain');
+        let result = document.querySelector('.whoWon');
+
+        buttonChoice.forEach(button => button.addEventListener('click', function(e) {
+            result.textContent = playRound(e.target.classList.value, getComputerChoice());
+            playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
+            computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
+            if (playerWins === 5) {
+                gameWinMessage.textContent = `YOU WON!`
+                const playAgain = document.createElement('button');
+                playAgain.textContent = `Play Again ?`;
+                playAgainContainer.appendChild(playAgain);
+                playAgain.addEventListener('click', () =>  { 
+                    playerWins = 0;  
+                    computerWins = 0;
+                    playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
+                    computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
+                    gameWinMessage.textContent = ``;
+                    result.textContent = ``;
+                    playAgain.remove();
+                });
+            }
+            if (computerWins === 5) {
+                gameWinMessage.textContent = `COMPUTER WON!`
+                const playAgain = document.createElement('button');
+                playAgain.textContent = `Play Again ?`;
+                playAgainContainer.appendChild(playAgain);
+                playAgain.addEventListener('click', () =>  { 
+                    computerWins = 0; 
+                    playerWins = 0; 
+                    playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
+                    computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
+                    gameWinMessage.textContent = ``;
+                    result.textContent = ``;
+                    playAgain.remove();
+                });
+            }
+        }))
 
         function getComputerChoice() {
             let random = Math.floor(Math.random() * 100);
-            let ComputerChoice = "";
+            let ComputerChoice
             if (random <= 34) {
                 ComputerChoice = "ROCK";
                 return ComputerChoice;
@@ -30,39 +90,23 @@
         }
 
         function playRound(playerSelection, computerSelection) {
-            playerSelection = playerSelection.toUpperCase();
                 if(playerSelection === computerSelection) {
-                console.log(`Both Players picked ${playerSelection}, it's a tie!`);
-            } else if (playerSelection === "ROCK" && computerSelection === "PAPER" || playerSelection === "PAPER" && computerSelection === "SCISSORS" || playerSelection === "SCISSORS" && computerSelection === "ROCK") {
+                return `Both Players picked ${playerSelection}, it's a tie!`;
+            } 
+            else if (playerSelection === "ROCK" && computerSelection === "PAPER" || 
+            playerSelection === "PAPER" && computerSelection === "SCISSORS" || 
+            playerSelection === "SCISSORS" && computerSelection === "ROCK") {
                 computerWins = computerWins + 1;
-                console.log(`Computer played ${computerSelection}, you LOSE!`);
+                return `Computer played ${computerSelection}, you LOSE!`;
 
-            } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" || playerSelection === "PAPER" && computerSelection === "ROCK" || playerSelection === "SCISSORS" && computerSelection === "PAPER" ) {
+            } 
+            else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" ||
+             playerSelection === "PAPER" && computerSelection === "ROCK" ||
+              playerSelection === "SCISSORS" && computerSelection === "PAPER" ) {
                 playerWins = playerWins + 1;
-                console.log(`Computer played ${computerSelection}, you WIN!`);
+                return `Computer played ${computerSelection}, you WIN!`;
             }
         }
-
-        function game() {
-            for (i = 0; i < 5; i++) {
-                
-                playRound(prompt("Type Rock, Paper, or Scissors"), getComputerChoice());
-                    console.log(`You have won ${playerWins} rounds!`);
-                    console.log(`Computer has won ${computerWins} rounds!`);
-            }
-
-            if(playerWins > computerWins) {
-                console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU WON!`);
-            } else if (playerWins < computerWins) {
-                console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU LOST!`);
-            } else if (playerWins == computerWins) {
-                console.log(`You won ${playerWins} times and the computer won ${computerWins} times! YOU TIED!`)
-            }
-        }
-
-        game();
-
-
     </script>
 </body>
 </html>
