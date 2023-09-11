@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="RPSStyleSheet.css">
 </head>
 <body>
     <div class="page">
         <div class="results" style="width: auto;">
             <h1>Rock Paper Scissors</h1>
             <h2>RESULTS</h2>
-            <h3 class="pWins">PLAYER WINS:</h3>
-            <h3 class="cWins">COMPUTER WINS:</h3>
-            <h3 class="whoWon"></h3>
-            <h1 class="gameWinMessage"></h1>
+            <h3 class="pWins">PLAYER WINS: 0</h3>
+            <h3 class="cWins">COMPUTER WINS: 0</h3>
+            <h3 class="whoWon" style="height: 3vh;"></h3>
+            <h1 class="gameWinMessage" style="height: 5vh;"></h1>
         </div>
         <div class="button-container">
             <button class="ROCK">ROCK</button>
@@ -40,34 +41,10 @@
             playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
             computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
             if (playerWins === 5) {
-                gameWinMessage.textContent = `YOU WON!`
-                const playAgain = document.createElement('button');
-                playAgain.textContent = `Play Again ?`;
-                playAgainContainer.appendChild(playAgain);
-                playAgain.addEventListener('click', () =>  { 
-                    playerWins = 0;  
-                    computerWins = 0;
-                    playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
-                    computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
-                    gameWinMessage.textContent = ``;
-                    result.textContent = ``;
-                    playAgain.remove();
-                });
+                gameWin("YOU");
             }
             if (computerWins === 5) {
-                gameWinMessage.textContent = `COMPUTER WON!`
-                const playAgain = document.createElement('button');
-                playAgain.textContent = `Play Again ?`;
-                playAgainContainer.appendChild(playAgain);
-                playAgain.addEventListener('click', () =>  { 
-                    computerWins = 0; 
-                    playerWins = 0; 
-                    playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
-                    computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
-                    gameWinMessage.textContent = ``;
-                    result.textContent = ``;
-                    playAgain.remove();
-                });
+                gameWin("COMPUTER");
             }
         }))
 
@@ -106,6 +83,22 @@
                 playerWins = playerWins + 1;
                 return `Computer played ${computerSelection}, you WIN!`;
             }
+        }
+
+        function gameWin(winner) { gameWinMessage.textContent = `${winner} WON!`
+                const playAgain = document.createElement('button');
+                playAgain.textContent = `Play Again ?`;
+                playAgain.classList.toggle('playagain')
+                playAgainContainer.appendChild(playAgain);
+                playAgain.addEventListener('click', () =>  { 
+                    playerWins = 0;  
+                    computerWins = 0;
+                    playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
+                    computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
+                    gameWinMessage.textContent = ``;
+                    result.textContent = ``;
+                    playAgain.remove();
+                });
         }
     </script>
 </body>
