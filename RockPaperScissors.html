@@ -36,17 +36,21 @@
         const playAgainContainer = document.querySelector('.playAgain');
         let result = document.querySelector('.whoWon');
 
-        buttonChoice.forEach(button => button.addEventListener('click', function(e) {
+
+       function Game() {    buttonChoice.forEach(button => button.addEventListener('click', function(e) {
             result.textContent = playRound(e.target.classList.value, getComputerChoice());
             playerWinsDisplay.textContent = `PLAYER WINS: ${playerWins}`;
             computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
             if (playerWins === 5) {
-                gameWin("YOU");
+               gameWin("YOU");
+               return;
             }
             if (computerWins === 5) {
                 gameWin("COMPUTER");
+                return;
             }
         }))
+    }
 
         function getComputerChoice() {
             let random = Math.floor(Math.random() * 100);
@@ -67,25 +71,35 @@
         }
 
         function playRound(playerSelection, computerSelection) {
-                if(playerSelection === computerSelection) {
+            if (playerWins < 5 && computerWins < 5) {
+            if(playerSelection === computerSelection) {
                 return `Both Players picked ${playerSelection}, it's a tie!`;
             } 
-            else if (playerSelection === "ROCK" && computerSelection === "PAPER" || 
-            playerSelection === "PAPER" && computerSelection === "SCISSORS" || 
-            playerSelection === "SCISSORS" && computerSelection === "ROCK") {
-                computerWins = computerWins + 1;
-                return `Computer played ${computerSelection}, you LOSE!`;
+
+            if (playerSelection === "ROCK" && computerSelection === "PAPER" || 
+                playerSelection === "PAPER" && computerSelection === "SCISSORS" || 
+                playerSelection === "SCISSORS" && computerSelection === "ROCK") {
+                    computerWins = computerWins + 1;
+                    return `Computer played ${computerSelection}, you LOSE!`;
 
             } 
-            else if (playerSelection === "ROCK" && computerSelection === "SCISSORS" ||
+
+            if (playerSelection === "ROCK" && computerSelection === "SCISSORS" ||
              playerSelection === "PAPER" && computerSelection === "ROCK" ||
               playerSelection === "SCISSORS" && computerSelection === "PAPER" ) {
                 playerWins = playerWins + 1;
                 return `Computer played ${computerSelection}, you WIN!`;
             }
+        } else {
+            return;
+        }
         }
 
-        function gameWin(winner) { gameWinMessage.textContent = `${winner} WON!`
+        function gameWin(winner) { 
+                gameWinMessage.textContent = `${winner} WON!`;
+                if (playAgainContainer.hasChildNodes()) {
+                    playAgain.remove();
+                }
                 const playAgain = document.createElement('button');
                 playAgain.textContent = `Play Again ?`;
                 playAgain.classList.toggle('playagain')
@@ -100,6 +114,8 @@
                     playAgain.remove();
                 });
         }
+
+        Game();
     </script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+.page {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5%;
+}
+
+.playagain {
+    margin-top: 10%;
+}
