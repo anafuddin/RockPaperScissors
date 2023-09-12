@@ -43,11 +43,9 @@
             computerWinsDisplay.textContent = `COMPUTER WINS: ${computerWins}`;
             if (playerWins === 5) {
                gameWin("YOU");
-               return;
             }
             if (computerWins === 5) {
                 gameWin("COMPUTER");
-                return;
             }
         }))
     }
@@ -90,10 +88,8 @@
                 playerWins = playerWins + 1;
                 return `Computer played ${computerSelection}, you WIN!`;
             }
-        } else {
-            return;
         }
-        }
+    }
 
         function gameWin(winner) { 
                 gameWinMessage.textContent = `${winner} WON!`;

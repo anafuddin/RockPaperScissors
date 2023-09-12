@@ -2,12 +2,21 @@
     display: grid;
     justify-content: center;
     text-align: center;
+    height: 100vh;
+    font-size: 1vw;
 }
 
 .button-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 5%;
+    min-width: 30vw;
+}
+
+button {
+    height: 5vh;
+    border-radius: 20px;
+    font-size: 1vw;
 }
 
 .playagain {
